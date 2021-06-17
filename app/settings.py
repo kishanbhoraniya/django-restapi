@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,8 +27,21 @@ SECRET_KEY = 'django-insecure-wam42h0_3y_o1vg^^gelel8l7049)%7wox4^_j6c!y-jvvihhq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'https://databasebackend.herokuapp.com/']
 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'de1n3fssij2ku2',
+#         'USER':'vrlykxnvxvqcpw',
+#         'PASSWORD':'7bdf8f08a12b64516efa537502963f73603442394b1ec1b556f23c876caa920b',
+#         'HOST': 'ec2-3-231-69-204.compute-1.amazonaws.com',
+#     }
+# }
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Application definition
 
@@ -40,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'api',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.runserver_nostatic',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -76,15 +92,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'de1n3fssij2ku2',
-        'USER':'vrlykxnvxvqcpw',
-        'PASSWORD':'7bdf8f08a12b64516efa537502963f73603442394b1ec1b556f23c876caa920b',
-        'HOST': 'ec2-3-231-69-204.compute-1.amazonaws.com',
-    }
-}
+
 
 
 # Password validation
@@ -124,6 +132,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+#location where django collect all static files
+STATIC_ROOT = os.path.join(BASE_DIR,'')
 
 MEDIA_ROOT  = os.path.join(BASE_DIR, '')
 MEDIA_URL = '/images/'
