@@ -30,20 +30,20 @@ DEBUG = True
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'https://databasebackend.herokuapp.com/']
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'de1n3fssij2ku2',
-#         'USER':'vrlykxnvxvqcpw',
-#         'PASSWORD':'7bdf8f08a12b64516efa537502963f73603442394b1ec1b556f23c876caa920b',
-#         'HOST': 'ec2-3-231-69-204.compute-1.amazonaws.com',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'testdb',
+        'USER':'root',
+        'PASSWORD':'kishan',
+        'HOST': 'localhost',
+    }
+}
 
-DATABASES = { 'default': dj_database_url.config() }
+# DATABASES = { 'default': dj_database_url.config() }
 
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 
 # Application definition
 
