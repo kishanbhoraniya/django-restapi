@@ -11,7 +11,7 @@ from .models import Task
 class SubTaskSerializer(ModelSerializer):
     class Meta:
         model = Task
-        fields = ['id','title']
+        fields = '__all__'
 
 
 class TaskSerializer(ModelSerializer):

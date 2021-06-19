@@ -15,7 +15,7 @@ import os
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -27,23 +27,24 @@ SECRET_KEY = 'django-insecure-wam42h0_3y_o1vg^^gelel8l7049)%7wox4^_j6c!y-jvvihhq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'https://databasebackend.herokuapp.com/']
+ALLOWED_HOSTS = ['*']
 
+CORS_ORIGIN_ALLOW_ALL = True
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'testdb',
-        'USER':'root',
-        'PASSWORD':'kishan',
-        'HOST': 'localhost',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'testdb',
+#         'USER':'root',
+#         'PASSWORD':'kishan',
+#         'HOST': 'localhost',
+#     }
+# }
 
-# DATABASES = { 'default': dj_database_url.config() }
+DATABASES = { 'default': dj_database_url.config() }
 
-# db_from_env = dj_database_url.config(conn_max_age=600)
-# DATABASES['default'].update(db_from_env)
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Application definition
 
@@ -57,11 +58,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'whitenoise.runserver_nostatic',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
